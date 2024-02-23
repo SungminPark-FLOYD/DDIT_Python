@@ -22,7 +22,7 @@ if ran > 0.66:
 elif ran > 0.33:
     com = "바위"
     if user == "가위":
-         res = "짐"
+        res = "짐"
     elif user == "바위":
         res = "비김"
     elif user == "보" :
