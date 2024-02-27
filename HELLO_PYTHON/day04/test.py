@@ -13,21 +13,28 @@ class Biden:
         self.memory /= 2
         
 
-class Me(Trump, Biden):
+class Jihun(Trump, Biden):
     def __init__(self):
         Trump.__init__(self)
         Biden.__init__(self)
-    
-    
+        
+    def fire_alz(self):
+        self.alz()
+        self.you_fire()
+        
+        print("Ji : ", self.money)
+        print("Ji : ",self.memory)
 
-if __name__ == '__main__':
-    
-    me = Me()
-    print(me.memory)
-    print(me.money)
-    
-    me.you_fire()
-    me.alz()
-    
-    print(me.memory)
-    print(me.money)
+ji = Jihun()
+print(ji.money)
+print(ji.memory)
+
+ji.alz()
+ji.you_fire()
+
+print(ji.money)
+print(ji.memory)
+
+ji.fire_alz()
+
+
