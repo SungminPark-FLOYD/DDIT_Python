@@ -79,7 +79,7 @@ public class MySwing12 extends JFrame {
 		};
 		
 		for(int i = 0; i < 1000; i++) {
-			int ran = (int)((Math.random()*9));
+			int ran = (int)(Math.random()*9);
 			int a = aa[0];
 			aa[0] = aa[ran];
 			aa[ran] = a;
@@ -89,20 +89,34 @@ public class MySwing12 extends JFrame {
 		return n;
 	}
 	
-	private String baseBall(int[] digits) {
+	private String baseBall(int[] mine) {
 		int st = 0;
 		int b = 0;
 		String sb = "";
-		if(arr[0] == digits[0]) st++;
-		if(arr[1] == digits[1]) st++;
-		if(arr[2] == digits[2]) st++;
-	
-		if(arr[0] == digits[1]) b++; 
-		if(arr[0] == digits[2]) b++;
-		if(arr[1] == digits[0]) b++; 
-		if(arr[1] == digits[2]) b++;
-		if(arr[2] == digits[1]) b++;
-		if(arr[2] == digits[0]) b++;
+//		if(arr[0] == com[0]) st++;
+//		if(arr[1] == com[1]) st++;
+//		if(arr[2] == com[2]) st++;
+//	
+//		if(arr[0] == com[1]) b++; 
+//		if(arr[0] == com[2]) b++;
+//		if(arr[1] == com[0]) b++; 
+//		if(arr[1] == com[2]) b++;
+//		if(arr[2] == com[1]) b++;
+//		if(arr[2] == com[0]) b++;
+		
+		for (int i = 0; i < 3; i++) {
+	        if (arr[i] == mine[i]) {
+	            st++;
+	        }
+	    }
+
+	    for (int i = 0; i < 3; i++) {
+	        for (int j = 0; j < 3; j++) {
+	            if (i != j && arr[i] == mine[j]) {
+	                b++;
+	            }
+	        }
+	    }
 
 		
 		
@@ -116,9 +130,9 @@ public class MySwing12 extends JFrame {
 		String user = "";	
 		String res = "";
 		user = tf.getText();
-        int[] digits = new int[user.length()];
-        for(int i=0; i<user.length(); i++) digits[i] = user.charAt(i) - '0';
-        res = baseBall(digits);       
+        int[] mine = new int[user.length()];
+        for(int i=0; i<user.length(); i++) mine[i] = user.charAt(i) - '0';
+        res = baseBall(mine);       
         ta.append(user + "\t" + res + "\n");
         tf.setText("");
                
