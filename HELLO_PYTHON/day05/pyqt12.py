@@ -60,13 +60,7 @@ class WindowClass(QMainWindow, form_class):
         
         self.te.append(res)
         self.le.setText("")
-        
-        
-        
-        
-        
-        
-    
+         
     
 if __name__ == "__main__":
     app = QApplication(sys.argv)
