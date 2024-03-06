@@ -1,36 +1,37 @@
 import cx_Oracle
 
-class DaoEmp:
+class DaoMem:
     def __init__(self):
         self.con = cx_Oracle.connect('python/py@localhost:1521/xe')
         self.cur = self.con.cursor()
    
     def selectList(self):
-        self.cur.execute("select * from emp order by e_id")
+        self.cur.execute("select * from mem order by m_id")
         rows = self.cur.fetchall()
+        
         list = []
         for i in rows:
-            list.append({'e_id':i[0], 'e_name':i[1], 'gen':i[2], 'addr':i[3]})
+            list.append({'m_id':i[0], 'm_name':i[1], 'tel':i[2], 'email':i[3]})
             
         return list
      
-    def selectOne(self, e_id):
+    def selectOne(self, m_id):
         sql = f"""
             select * 
-            from emp 
-            where e_id = '{e_id}' 
-            order by e_id
+            from mem 
+            where m_id = '{m_id}' 
+            order by m_id
         """
         self.cur.execute(sql)
         row = self.cur.fetchone()
-        vo = {'e_id':row[0], 'e_name':row[1], 'gen':row[2], 'addr':row[3]}
+        vo = {'m_id':row[0], 'm_name':row[1], 'tel':row[2], 'email':row[3]}
             
         return vo 
            
-    def insert(self, e_id,e_name,gen,addr):
+    def insert(self, m_id,m_name,tel,email):
         sql = f"""
-            insert into emp(e_id,e_name,gen,addr)
-            values('{e_id}','{e_name}','{gen}','{addr}')
+            insert into mem(m_id,m_name,tel,email)
+            values('{m_id}','{m_name}','{tel}','{email}')
         """
         self.cur.execute(sql)
         cnt = self.cur.rowcount
@@ -39,9 +40,9 @@ class DaoEmp:
         print(cnt)
         return cnt
     
-    def delete(self, e_id):
+    def delete(self, m_id):
         sql = f"""
-            delete from emp where e_id = '{e_id}'
+            delete from mem where m_id = '{m_id}'
         """
         
         self.cur.execute(sql)
@@ -50,13 +51,13 @@ class DaoEmp:
         
         return cnt
     
-    def update(self, e_id,e_name,gen,addr):
+    def update(self, m_id,m_name,tel,email):
         sql = f"""
-            update emp set
-            e_name = '{e_name}',
-            gen = '{gen}',
-            addr = '{addr}'
-            where e_id = '{e_id}'
+            update mem set
+            m_name = '{m_name}',
+            tel = '{tel}',
+            email = '{email}'
+            where m_id = '{m_id}'
         """
         self.cur.execute(sql)
         cnt = self.cur.rowcount
@@ -69,7 +70,7 @@ class DaoEmp:
         self.con.close()
 
 if __name__== '__main__':
-    de = DaoEmp()
+    de = DaoMem()
     # emp1 = de.selectList()
     # emp2 = de.selectOne('4')
     # cnt = de.insert('4','4','4','4')

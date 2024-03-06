@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+{% if cnt == 1 %}
+<script type="text/javascript">
+	alert("성공")
+	location.href = "/mem_list"
+</script>
+{% else %}
+<script type="text/javascript">
+	alert("실패")
+	history.back();
+	//history.go()-1;
+</script>
+{% endif %}
+
+<script type="text/javascript">
+	var cnt = {{cnt}}
+</script>
+</head>
+<body>
+</body>
+</html>
