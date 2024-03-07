@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+#it {
+	width:40px;
+}
+#mydiv{
+	height:300px;
+}
+</style>
+<script type="text/javascript">
+	function myclick() {
+		var a = document.querySelector('#it').value;
+// 		var gugu = a + "*" + 1 +"=" +(a*1) + "\n";
+// 		gugu += a + "*" + 2 +"=" + (a*2)+ "\n";
+// 		gugu += a + "*" + 3 +"=" + (a*3)+ "\n";
+// 		gugu += a + "*" + 4 +"=" + (a*4)+ "\n";
+// 		gugu += a + "*" + 5 +"=" + (a*5)+ "\n";
+// 		gugu += a + "*" + 6 +"=" + (a*6)+ "\n";
+// 		gugu += a + "*" + 7 +"=" + (a*7)+ "\n";
+// 		gugu += a + "*" + 8 +"=" + (a*8)+ "\n";
+// 		gugu += a + "*" + 9 +"=" + (a*9)+ "\n";
+		
+// 		document.getElementById('mydiv').innerText = gugu
+		
+		var dan = "";
+		for(i = 1; i <= 9; i++) {
+			dan += a + "*" + i +"=" +(a*i) + "\n"
+		}
+		
+		document.getElementById('mydiv').innerText = dan
+	}
+</script>
+</head>
+<body>
+<h4>JS04</h4>
+<table border="1px">
+	<tr>
+		<th>출력단수 :</th>
+		<td>
+			<input type="text" id="it">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="출력하기" onclick="myclick()">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="mydiv"></div>
+		</td>
+	</tr>
+
+</table>
+
+
+</body>
+</html>

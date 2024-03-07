@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function myclick() {
+		
+	}
+</script>
+</head>
+<body>
+<h4>JS01</h4>
+<div id="mydiv">Good Morning</div>
+<input type="button" value="click" onclick="myclick()"/>
+<script type="text/javascript">
+var btn = document.querySelector('input');
+
+btn.addEventListener('click', function (){
+	document.getElementById('mydiv').innerHTML = "Good Evening"
+})
+
+</script>
+</body>
+</html>

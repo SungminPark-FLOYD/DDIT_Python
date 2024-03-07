@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+input[type=text] {
+	width:40px;
+}
+
+</style>
+<script type="text/javascript">
+	function myclick() {
+		var ran = Math.random();
+		var mine = document.querySelector("#it_mine");
+		var com = document.querySelector("#it_com");
+		var res = document.querySelector("#it_result");
+		
+		if(ran > 0.5) com.value = "홀"
+		else com.value = "짝"
+		
+		if(mine.value === com.value) res.value = "승리"
+		else res.value = "패배"
+	}
+	
+	function enterkey() {
+		if (window.event.keyCode == 13) {
+			myclick();
+	    }
+	}
+</script>
+</head>
+<body>
+<h4>JS05</h4>
+<table border="1px">
+	<tr>
+		<th>나 :</th>
+		<td>
+			<input type="text" id="it_mine" onkeyup="enterkey()">
+		</td>
+	</tr>
+	<tr>
+		<th>com :</th>
+		<td>
+			<input type="text" id="it_com">
+		</td>
+	</tr>
+	<tr>
+		<th>결과 : </th>
+		<td>
+			<input type="text" id="it_result">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><input type="button" value="실행" onclick="myclick()"></td>
+	</tr>
+
+</table>
+
+
+</body>
+</html>

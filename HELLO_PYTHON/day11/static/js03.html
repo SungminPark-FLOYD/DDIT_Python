@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.it {
+	width:40px;
+}
+</style>
+<script type="text/javascript">
+	function myclick() {
+		var a = document.querySelectorAll('.it');
+		var mul = parseInt(a[0].value) * parseInt(a[1].value);	
+		a[2].value = mul
+		
+	}
+</script>
+</head>
+<body>
+<h4>JS03</h4>
+<input type="text" class="it">
+*
+<input type="text" class="it">
+<input type="button" value="=" onclick="myclick()"/>
+<input type="text" id="it" class="it">
+
+
+</body>
+</html>

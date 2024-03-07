@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+input[type=button]{
+	text-align: center
+}
+
+</style>
+<script type="text/javascript">
+	function myclick() {	
+		//로또
+		var aa = [];
+		
+		for(var i=0;i<6;i++){
+			  var num = Math.floor(Math.random() * 45) + 1;
+			  for(var j in aa){
+			    while(num == aa[j]){ 
+			      num = Math.floor(Math.random() * 45) + 1;
+			    }
+			  }
+			  aa.push(num);
+			}
+		
+		console.log(aa);
+		
+		var span = document.querySelectorAll(".myspan");
+		
+		span[0].innerHTML = aa[0];
+		span[1].innerHTML = aa[1];
+		span[2].innerHTML = aa[2];
+		span[3].innerHTML = aa[3];
+		span[4].innerHTML = aa[4];
+		span[5].innerHTML = aa[5];
+		
+	}
+	
+
+</script>
+</head>
+<body>
+<h4>JS09</h4>
+<table border="1px">
+	<tr>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6"><input type="button" value="로또출력" onclick="myclick()"></td>
+	</tr>
+
+</table>
+
+</body>
+</html>

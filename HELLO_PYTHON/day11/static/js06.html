@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+table{
+	text-align: center
+}
+.btn {
+	width:50px;
+}
+#btn_call {
+	width:100px;
+}
+#it{
+	text-align: right
+}
+
+</style>
+<script type="text/javascript">
+	function myclick(e) {
+		var call = document.querySelector('#it').value;
+		var num = e.target.value;
+		res = call + num
+		document.querySelector('#it').value = res;
+		
+	}
+	function call() {
+		var phone = document.querySelector('#it').value;
+		alert("Calling~~\n" + phone)
+	}
+	
+	function fn_init() {
+		var btn = document.querySelectorAll(".btn");
+		
+		for(var i=0; i < btn.length; i++) {
+			btn[i].addEventListener("click", function() {
+				console.log(this);
+			});
+		}
+	}
+
+</script>
+</head>
+<body onload="fn_init()">
+<h4>JS06</h4>
+<table border="1px">
+	<tr>
+		<td colspan="3">
+			<input type="text" id="it">
+		</td>
+	</tr>
+	<tr>
+		<td><input type="button" value="1" class="btn" onclick="myclick(event)"></td>
+		<td><input type="button" value="2" class="btn" onclick="myclick(event)"></td>
+		<td><input type="button" value="3" class="btn" onclick="myclick(event)"></td>
+	</tr>                                                                
+	<tr>                                                                 
+		<td><input type="button" value="4" class="btn" onclick="myclick(event)"></td>
+		<td><input type="button" value="5" class="btn" onclick="myclick(event)"></td>
+		<td><input type="button" value="6" class="btn" onclick="myclick(event)"></td>
+	</tr>                                                                
+	<tr>                                                                
+		<td><input type="button" value="7" class="btn" onclick="myclick(event)"></td>
+		<td><input type="button" value="8" class="btn" onclick="myclick(event)"></td>
+		<td><input type="button" value="9" class="btn" onclick="myclick(event)"></td>
+	</tr>                                                             
+	<tr>                                                                 
+		<td><input type="button" value="0" class="btn" onclick="myclick(event)"></td>
+		<td colspan="2"><input type="button" value="☎" id="btn_call" onclick="call()"></td>
+	</tr>
+
+</table>
+
+
+</body>
+</html>

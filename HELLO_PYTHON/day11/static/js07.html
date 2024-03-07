@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+input[type=text]{
+	width: 40px;
+}
+
+</style>
+<script type="text/javascript">
+	function myclick() {
+		var first = document.querySelector('#it_first').value;
+		var last = document.querySelector('#it_last').value;
+		var star = "*";
+		var res = "";
+		for(i = parseInt(first); i <= parseInt(last); i++) {
+			res += star.repeat(i) + "\n";
+		}
+		
+		document.querySelector('textarea').innerHTML = res;
+		
+	}
+	
+
+</script>
+</head>
+<body>
+<h4>JS07</h4>
+<table border="1px">
+	<tr>
+		<th>첫별수</th>
+		<td>
+			<input type="text" id="it_first">
+		</td>
+	</tr>
+	<tr>
+		<th>끝별수</th>
+		<td>
+			<input type="text" id="it_last">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="별그리기" onclick="myclick()">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<textarea cols="20" rows="20">
+			</textarea>
+		</td>
+	</tr>
+</table>
+
+
+</body>
+</html>
