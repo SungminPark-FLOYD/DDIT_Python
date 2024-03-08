@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.7.1.js"></script>
+<style type="text/css">
+#it {
+	width:40px;
+}
+#mydiv{
+	height:300px;
+}
+</style>
+<script type="text/javascript">
+	function myclick() {
+		var a = $('#it').val();
+		
+		var dan = "";
+		for(i = 1; i <= 9; i++) {
+			dan += a + "*" + i +"=" +(a*i) + "<br>"
+		}
+		
+		$('#mydiv').html(dan);
+	}
+	
+	$(document).ready(function() {
+		$("#btn").bind("click", function(event) {  
+			myclick();
+		});	
+	});
+</script>
+</head>
+<body>
+<h4>JS04</h4>
+<table border="1px">
+	<tr>
+		<th>출력단수 :</th>
+		<td>
+			<input type="text" id="it">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="출력하기" id="btn">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="mydiv"></div>
+		</td>
+	</tr>
+
+</table>
+
+
+</body>
+</html>

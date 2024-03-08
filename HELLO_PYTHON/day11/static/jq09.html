@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.7.1.js"></script>
+<style type="text/css">
+input[type=button]{
+	text-align: center
+}
+
+</style>
+<script type="text/javascript">
+	function myclick() {	
+		//로또
+		var aa = [];
+		
+		for(var i=0;i<6;i++){
+			  var num = Math.floor(Math.random() * 45) + 1;
+			  for(var j in aa){
+			    while(num == aa[j]){ 
+			      num = Math.floor(Math.random() * 45) + 1;
+			    }
+			  }
+			  aa.push(num);
+			}
+		
+		var span = $(".myspan");
+		
+		span.eq(0).html(aa[0]);
+		span.eq(1).html(aa[1]);
+		span.eq(2).html(aa[2]);
+		span.eq(3).html(aa[3]);
+		span.eq(4).html(aa[4]);
+		span.eq(5).html(aa[5]);
+		                   
+	}
+	
+	$(document).ready(function() {		
+		$("#btn").bind("click", function(event) {  
+			myclick();
+		});	
+			
+	});
+	
+
+</script>
+</head>
+<body>
+<h4>JS09</h4>
+<table border="1px">
+	<tr>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+		<td>
+			<span class="myspan">__</span>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6"><input type="button" value="로또출력" id="btn"></td>
+	</tr>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.7.1.js"></script>
+<script type="text/javascript">
+	function myclick() {
+		var val = $("#it").val();
+		var num = 0;
+		num = parseInt(val, 10) - 1;
+		$('#it').val(num);
+		
+		
+	}
+	$(document).ready(function() {
+		$("#btn").bind("click", function(event) {  
+			myclick();
+		});	
+	});
+</script>
+</head>
+<body>
+<h4>JS02</h4>
+<input type="text" id="it" value="100"/>
+<input type="button" value="DECREASE" id="btn"/>
+</body>
+</html>

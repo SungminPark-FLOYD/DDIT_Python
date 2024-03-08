@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.7.1.js"></script>
+<style type="text/css">
+input[type=text]{
+	width: 40px;
+}
+
+</style>
+<script type="text/javascript">
+	function myclick() {
+		var first = $('#it_first').val();
+		var last = $('#it_last').val()
+		var star = "*";
+		var res = "";
+		for(i = parseInt(first); i <= parseInt(last); i++) {
+			res += star.repeat(i) + "\n";
+		}
+		$('#ta').html(res);		
+	}
+	
+	$(document).ready(function() {		
+		$("#btn").bind("click", function(event) {  
+			myclick();
+		});	
+			
+	});
+	
+
+</script>
+</head>
+<body>
+<h4>JS07</h4>
+<table border="1px">
+	<tr>
+		<th>첫별수</th>
+		<td>
+			<input type="text" id="it_first">
+		</td>
+	</tr>
+	<tr>
+		<th>끝별수</th>
+		<td>
+			<input type="text" id="it_last">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" value="별그리기" id="btn">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<textarea cols="20" rows="20" id="ta">
+			</textarea>
+		</td>
+	</tr>
+</table>
+
+
+</body>
+</html>
