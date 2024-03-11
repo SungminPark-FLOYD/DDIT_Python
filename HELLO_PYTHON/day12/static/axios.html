@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+function myclick() {
+	let path = "/axios";
+    axios.post("/axios", {
+	        method: "post",
+	        data: 
+	          {menu: "짬뽕"}
+	        ,
+        }).then((res) => {
+        console.log(res.data.result)
+    });
+}
+</script>
+</head>
+<body>
+AXIOS
+<a href="javascript:myclick()">AXIOS</a>
+</body>
+</html>

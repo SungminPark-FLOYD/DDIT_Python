@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+function myclick() {
+	
+const init = {
+    method: "POST",
+    headers: {
+      "accept": "application/json",
+      "content-type" : "application/json"
+    },
+    body : JSON.stringify({'menu' : '짬뽕'})
+}
+fetch('/fetch', init)
+    .then(response => {
+        // 첫번째 then
+        if(response.ok){
+          return response.json()
+        } else {
+          console.log(response.statusText);
+        }
+	})
+    .then(jsonData => {
+        console.log(jsonData)
+    })
+}
+</script>
+</head>
+<body>
+FETCH
+<a href="javascript:myclick()">ajax</a>
+</body>
+</html>
