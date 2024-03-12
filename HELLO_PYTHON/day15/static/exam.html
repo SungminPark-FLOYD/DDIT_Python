@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function fn_list() {
+	let options = {
+		    method: "POST",
+		    headers: {
+		      "accept": "application/json"
+		    }
+		}
+	fetch('/examList', options)
+    .then(response => {
+        // 첫번째 then
+        if(response.ok){
+          return response.json()
+        } else {
+          console.log(response.statusText);
+        }
+	})
+    .then(res => {
+    	var list = res.list;
+		 
+		 var txt = ``;
+		 		 
+		 for(var i = 0; i < list.length; i++) {
+			 var e_id = list[i].e_id;
+			 var e_que = list[i].e_que;
+			 var ans = list[i].ans;
+			 txt += `
+				 <tr>
+					<td><a href="javascript:fn_one(${e_id})">${e_id}</a></td>
+					<td>${e_que}</td>
+					<td>${ans}</td>
+				</tr>		 
+			 `;
+		 }
+		 document.getElementById('mytbody').innerHTML = txt;
+    })
+    .catch(e => {
+    	console.log("에러")
+    })
+	
+}
+function fn_one(e_id) {
+	let options = {
+		    method: "POST",
+		    headers: {
+		      "accept": "application/json",
+		      "content-type" : "application/json"
+		    },
+		    body : JSON.stringify({'e_id' : e_id})
+		}
+	fetch('/examone', options)
+	.then(resp => {
+		 if(resp.ok){
+          return resp.json()
+        } else {
+          console.log(response.statusText);
+        }
+	}).then(res => {
+		 var vo = res.vo;
+		 var e_id = vo.e_id;
+		 var e_que = vo.e_que;
+		 var ans1 = vo.ans1;
+		 var ans2 = vo.ans2;
+		 var ans3 = vo.ans3;
+		 var ans4 = vo.ans4;
+		 var ans = vo.ans;
+		
+		 document.getElementById('e_id').value = e_id;
+		 
+		 document.querySelector('#e_que').value = e_que;
+		 document.querySelector('#ans1').value = ans1;
+		 document.querySelector('#ans2').value = ans2;
+		 document.querySelector('#ans3').value = ans3;
+		 document.querySelector('#ans4').value = ans4;
+		 document.querySelector('#ans').value = ans;
+		
+	})
+	
+}
+
+function fn_add() {
+	 var e_id = 	document.getElementById('e_id').value;
+	 var e_que = 	document.querySelector('#e_que').value;
+	 var ans1 = 	document.querySelector('#ans1').value;
+	 var ans2 = 	document.querySelector('#ans2').value;
+	 var ans3 = 	document.querySelector('#ans3').value;
+	 var ans4 =	 	document.querySelector('#ans4').value;
+	 var ans = 		document.querySelector('#ans').value;
+	var param = {
+		'e_id' : e_id,
+		'e_que' : e_que,
+		'ans1' : ans1,
+		'ans2' : ans2,
+		'ans3' : ans3,
+		'ans4' : ans4,
+		'ans' : ans
+	};
+	let options = {
+		    method: "POST",
+		    headers: {
+		      "accept": "application/json",
+		      "content-type" : "application/json"
+		    },
+		    body : JSON.stringify(param)
+		}
+	fetch('/examadd', options)
+	.then(resp => {
+		 if(resp.ok){
+          return resp.json()
+        } else {
+          console.log(response.statusText);
+        }
+	}).then(res => {
+		if(res.cnt != 1) alert("데이터 추가 중 문제가 생겼습니다.");
+		else {
+			alert("데이터 입력 성공");
+			fn_list();
+			document.getElementById('e_id').value = ""; 
+			document.querySelector('#e_que').value = "";
+			document.querySelector('#ans1').value = ""; 
+			document.querySelector('#ans2').value = ""; 
+		    document.querySelector('#ans3').value = ""; 
+		    document.querySelector('#ans4').value = ""; 
+	        document.querySelector('#ans').value = "";  
+	 	}
+		
+	})
+	
+}
+function fn_mod() {
+	 var e_id = 	document.getElementById('e_id').value;
+	 var e_que = 	document.querySelector('#e_que').value;
+	 var ans1 = 	document.querySelector('#ans1').value;
+	 var ans2 = 	document.querySelector('#ans2').value;
+	 var ans3 = 	document.querySelector('#ans3').value;
+	 var ans4 =	 	document.querySelector('#ans4').value;
+	 var ans = 		document.querySelector('#ans').value;
+	 var param = {
+				'e_id' : e_id,
+				'e_que' : e_que,
+				'ans1' : ans1,
+				'ans2' : ans2,
+				'ans3' : ans3,
+				'ans4' : ans4,
+				'ans' : ans
+			};
+	 let options = {
+			    method: "POST",
+			    headers: {
+			      "accept": "application/json",
+			      "content-type" : "application/json"
+			    },
+			    body : JSON.stringify(param)
+			}
+	
+	 fetch('/exammod', options)
+		.then(resp => {
+			 if(resp.ok){
+	          return resp.json()
+	        } else {
+	          console.log(response.statusText);
+	        }
+		}).then(res => {
+			if(res.cnt != 1) alert("데이터 수정 중 문제가 생겼습니다.");
+			else {
+				alert("데이터 수정 성공");
+				fn_list();
+				document.getElementById('e_id').value = ""; 
+				document.querySelector('#e_que').value = "";
+				document.querySelector('#ans1').value = ""; 
+				document.querySelector('#ans2').value = ""; 
+			    document.querySelector('#ans3').value = ""; 
+			    document.querySelector('#ans4').value = ""; 
+		        document.querySelector('#ans').value = "";  
+		 	}
+			
+		})
+}
+function fn_del() {
+	var e_id = 	document.getElementById('e_id').value;
+
+	var param = {
+		'e_id' : e_id
+	};
+	let options = {
+		    method: "POST",
+		    headers: {
+		      "accept": "application/json",
+		      "content-type" : "application/json"
+		    },
+		    body : JSON.stringify(param)
+		}
+	console.log(param)
+	fetch('/examdel', options)
+		.then(resp => {
+			 if(resp.ok){
+	          return resp.json()
+	        } else {
+	          console.log(response.statusText);
+	        }
+		}).then(res => {
+			if(res.cnt != 1)alert("데이터 삭제 중 문제가 생겼습니다.");
+			else {
+				alert("데이터 삭제 성공");
+				fn_list();
+				document.getElementById('e_id').value = ""; 
+				document.querySelector('#e_que').value = "";
+				document.querySelector('#ans1').value = ""; 
+				document.querySelector('#ans2').value = ""; 
+			    document.querySelector('#ans3').value = ""; 
+			    document.querySelector('#ans4').value = ""; 
+		        document.querySelector('#ans').value = "";  
+		 	}
+			
+		})
+	
+}
+</script>
+</head>
+<body onload="fn_list()">
+<h4>EXAM</h4>
+<table border="1px">
+	<tr>
+		<td>사번</td>
+		<td>문제</td>
+		<td>답</td>
+	</tr>
+	<tbody id="mytbody">
+		<tr>
+			<td colspan="3">
+				검색된 데이터가 없습니다.
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br>
+<table border="1px">
+	<tr>
+		<td>문제번호</td>
+		<td>
+			<input type="text" id="e_id">
+		</td>
+	</tr>
+	<tr>
+		<td>문제</td>
+		<td>
+			<input type="text" id="e_que">
+		</td>
+	</tr>
+	<tr>
+		<td>1.</td>
+		<td>
+			<input type="text" id="ans1">
+		</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td>
+			<input type="text" id="ans2">
+		</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td>
+			<input type="text" id="ans3">
+		</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td>
+			<input type="text" id="ans4">
+		</td>
+	</tr>
+	<tr>
+		<td>정답</td>
+		<td>
+			<input type="text" id="ans">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button onclick="fn_add()">추가</button>				
+			<button onclick="fn_mod()">수정</button>			
+		</td>
+		<td>
+			<button onclick="fn_del()">삭제</button>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

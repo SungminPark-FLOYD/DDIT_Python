@@ -5,11 +5,10 @@
 <title>Insert title here</title>
 <script src="jquery-3.7.1.js"></script>
 <script type="text/javascript">
-
 function fn_list() {
 	$.ajax({			
 		 type : 'post',
-		 url : '/empList',
+		 url : '/examList',
 		 contentType : 'JSON',
 		 dataType : 'json',
 		 success : function(res) {
@@ -20,15 +19,13 @@ function fn_list() {
 			 
 			 for(var i = 0; i < list.length; i++) {
 				 var e_id = list[i].e_id;
-				 var e_name = list[i].e_name;
-				 var gen = list[i].gen;
-				 var addr = list[i].addr;
+				 var e_que = list[i].e_que;
+				 var ans = list[i].ans;
 				 txt += `
 					 <tr>
 						<td><a href="javascript:fn_one(${e_id})">${e_id}</a></td>
-						<td>${e_name}</td>
-						<td>${gen}</td>
-						<td>${addr}</td>
+						<td>${e_que}</td>
+						<td>${ans}</td>
 					</tr>		 
 				 `;
 			 }
@@ -41,25 +38,31 @@ function fn_list() {
 	}) 	
 }
 function fn_one(e_id) {
-	console.log(e_id)
 	var postdata = {'e_id' : e_id}
 	$.ajax({			
 		 type : 'post',
-		 url : '/empone',
+		 url : '/examone',
 		 data : JSON.stringify(postdata),
 		 contentType : 'application/json',
 		 dataType : 'json',
 		 success : function(res) {
 			 var vo = res.vo;
-			 var id = vo.e_id;
-			 var name = vo.e_name;
-			 var gen = vo.gen;
-			 var addr = vo.addr;
+			 var e_id = vo.e_id;
+			 var e_que = vo.e_que;
+			 var ans1 = vo.ans1;
+			 var ans2 = vo.ans2;
+			 var ans3 = vo.ans3;
+			 var ans4 = vo.ans4;
+			 var ans = vo.ans;
+
 			 
-			 $('#e_id').val(id);
-			 $('#e_name').val(name);
-			 $('#gen').val(gen);
-			 $('#addr').val(addr);
+			 $('#e_id').val(e_id);
+			 $('#e_que').val(e_que);
+			 $('#ans1').val(ans1);
+			 $('#ans2').val(ans2);
+			 $('#ans3').val(ans3);
+			 $('#ans4').val(ans4);
+			 $('#ans').val(ans);
 		 },
 		 error : function() {
 		 	alert('요청 실패쓰');
@@ -68,20 +71,26 @@ function fn_one(e_id) {
 }
 
 function fn_add() {
-	var e_id = $('#e_id').val();
-	var e_name = $('#e_name').val();
-	var gen = $('#gen').val();
-	var addr = $('#addr').val();
+	 var e_id = 	$('#e_id').val();
+	 var e_que = 	$('#e_que').val();
+	 var ans1 = 	$('#ans1').val();
+	 var ans2 = 	$('#ans2').val();
+	 var ans3 = 	$('#ans3').val();
+	 var ans4 =	 	$('#ans4').val();
+	 var ans = 		$('#ans').val();
 	var param = {
 		'e_id' : e_id,
-		'e_name' : e_name,
-		'gen' : gen,
-		'addr' : addr
+		'e_que' : e_que,
+		'ans1' : ans1,
+		'ans2' : ans2,
+		'ans3' : ans3,
+		'ans4' : ans4,
+		'ans' : ans
 	};
 	
 	$.ajax({			
 		 type : 'post',
-		 url : '/empadd',
+		 url : '/examadd',
 		 data : JSON.stringify(param),
 		 contentType : 'application/json',
 		 dataType : 'json',
@@ -90,34 +99,41 @@ function fn_add() {
 			else {
 				alert("데이터 입력 성공");
 				fn_list();
-				$('#e_id').val("");
-				$('#e_name').val("");
-				$('#gen').val("");
-				$('#addr').val("");
-			}
-			
+				$('#e_id').val(""); 
+				$('#e_que').val("");
+				$('#ans1').val(""); 
+				$('#ans2').val(""); 
+			    $('#ans3').val(""); 
+			    $('#ans4').val(""); 
+		        $('#ans').val("");  
+		 	}
 		 },
 		 error : function() {
 		 	alert('요청 실패쓰');
 		 }
 	}) 	
 }
-
 function fn_mod() {
-	var e_id = $('#e_id').val();
-	var e_name = $('#e_name').val();
-	var gen = $('#gen').val();
-	var addr = $('#addr').val();
-	var param = {
-		'e_id' : e_id,
-		'e_name' : e_name,
-		'gen' : gen,
-		'addr' : addr
-	};
+	var e_id = 	$('#e_id').val();
+	 var e_que = 	$('#e_que').val();
+	 var ans1 = 	$('#ans1').val();
+	 var ans2 = 	$('#ans2').val();
+	 var ans3 = 	$('#ans3').val();
+	 var ans4 =	 	$('#ans4').val();
+	 var ans = 		$('#ans').val();
+	 var param = {
+				'e_id' : e_id,
+				'e_que' : e_que,
+				'ans1' : ans1,
+				'ans2' : ans2,
+				'ans3' : ans3,
+				'ans4' : ans4,
+				'ans' : ans
+			};
 	
 	$.ajax({			
 		 type : 'post',
-		 url : '/empmod',
+		 url : '/exammod',
 		 data : JSON.stringify(param),
 		 contentType : 'application/json',
 		 dataType : 'json',
@@ -126,10 +142,13 @@ function fn_mod() {
 			else {
 				alert("데이터 수정 성공");
 				fn_list();
-				$('#e_id').val("");
-				$('#e_name').val("");
-				$('#gen').val("");
-				$('#addr').val("");
+				$('#e_id').val(""); 
+				$('#e_que').val("");
+				$('#ans1').val(""); 
+				$('#ans2').val(""); 
+			    $('#ans3').val(""); 
+			    $('#ans4').val(""); 
+		        $('#ans').val(""); 
 			}
 			
 		 },
@@ -148,7 +167,7 @@ function fn_del() {
 	
 	$.ajax({			
 		 type : 'post',
-		 url : '/empdel',
+		 url : '/examdel',
 		 data : JSON.stringify(param),
 		 contentType : 'application/json',
 		 dataType : 'json',
@@ -157,10 +176,13 @@ function fn_del() {
 			else {
 				alert("데이터 삭제 성공");
 				fn_list();
-				$('#e_id').val("");
-				$('#e_name').val("");
-				$('#gen').val("");
-				$('#addr').val("");
+				$('#e_id').val(""); 
+				$('#e_que').val("");
+				$('#ans1').val(""); 
+				$('#ans2').val(""); 
+			    $('#ans3').val(""); 
+			    $('#ans4').val(""); 
+		        $('#ans').val(""); 
 			}
 			
 		 },
@@ -172,17 +194,16 @@ function fn_del() {
 </script>
 </head>
 <body onload="fn_list()">
-<h4>EMP</h4>
+<h4>EXAM</h4>
 <table border="1px">
 	<tr>
 		<td>사번</td>
-		<td>이름</td>
-		<td>성별</td>
-		<td>주소</td>
+		<td>문제</td>
+		<td>답</td>
 	</tr>
 	<tbody id="mytbody">
 		<tr>
-			<td colspan="4">
+			<td colspan="3">
 				검색된 데이터가 없습니다.
 			</td>
 		</tr>
@@ -191,27 +212,45 @@ function fn_del() {
 <br>
 <table border="1px">
 	<tr>
-		<td>사번</td>
+		<td>문제번호</td>
 		<td>
 			<input type="text" id="e_id">
 		</td>
 	</tr>
 	<tr>
-		<td>이름</td>
+		<td>문제</td>
 		<td>
-			<input type="text" id="e_name">
+			<input type="text" id="e_que">
 		</td>
 	</tr>
 	<tr>
-		<td>성별</td>
+		<td>1.</td>
 		<td>
-			<input type="text" id="gen">
+			<input type="text" id="ans1">
 		</td>
 	</tr>
 	<tr>
-		<td>주소</td>
+		<td>2.</td>
 		<td>
-			<input type="text" id="addr">
+			<input type="text" id="ans2">
+		</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td>
+			<input type="text" id="ans3">
+		</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td>
+			<input type="text" id="ans4">
+		</td>
+	</tr>
+	<tr>
+		<td>정답</td>
+		<td>
+			<input type="text" id="ans">
 		</td>
 	</tr>
 	<tr>

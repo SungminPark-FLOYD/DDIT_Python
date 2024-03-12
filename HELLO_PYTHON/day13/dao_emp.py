@@ -6,7 +6,7 @@ class DaoEmp:
         self.cur = self.con.cursor()
    
     def selectList(self):
-        self.cur.execute("select * from emp order by e_id")
+        self.cur.execute("select * from emp order by e_id desc")
         rows = self.cur.fetchall()
         list = []
         for i in rows:

@@ -5,7 +5,19 @@
 <title>Insert title here</title>
 <script src="jquery-3.7.1.js"></script>
 <script type="text/javascript">
-
+$('document').ready(function () {
+	fn_list();
+	
+	$('#btn_add').on('click',function() {
+		fn_add();
+	});
+	$('#btn_mod').on('click',function() {
+		fn_mod();
+	});
+	$('#btn_del').on('click',function() {
+		fn_del();
+	});
+})
 function fn_list() {
 	$.ajax({			
 		 type : 'post',
@@ -171,7 +183,7 @@ function fn_del() {
 }
 </script>
 </head>
-<body onload="fn_list()">
+<body>
 <h4>EMP</h4>
 <table border="1px">
 	<tr>
@@ -216,11 +228,11 @@ function fn_del() {
 	</tr>
 	<tr>
 		<td>
-			<button onclick="fn_add()">추가</button>				
-			<button onclick="fn_mod()">수정</button>			
+			<button id="btn_add">추가</button>				
+			<button id="btn_mod">수정</button>			
 		</td>
 		<td>
-			<button onclick="fn_del()">삭제</button>
+			<button id="btn_del">삭제</button>
 		</td>
 	</tr>
 </table>
