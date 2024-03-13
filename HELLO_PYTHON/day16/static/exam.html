@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="jquery-3.7.1.js"></script>
+<script type="text/javascript">
+function fn_list() {
+	let path = "/examList";
+	
+	axios.post(path, null,{
+	        headers : {
+	        	'accept' : 'application/json',
+	        	"content-type" : "application/json"
+	        }
+	    }).then((res) => {
+	    	var list = res.data.list;
+			 
+			 var txt = ``;
+			 
+			 for(var i = 0; i < list.length; i++) {
+				 var e_id = list[i].e_id;
+				 var e_que = list[i].e_que;
+				 var ans = list[i].ans;
+				 txt += `
+					 <tr>
+						<td><a href="javascript:fn_one(${e_id})">${e_id}</a></td>
+						<td>${e_que}</td>
+						<td>${ans}</td>
+					</tr>		 
+				 `;
+			 }
+			 $('#mytbody').html(txt);
+	    })
+
+}
+function fn_one(e_id) {
+	
+	var postdata = {'e_id' : e_id}
+	axios.post('/examone', JSON.stringify(postdata),{
+        headers : {
+        	'accept' : 'application/json',
+        	"content-type" : "application/json"
+        }
+    }).then((res) => {
+    	console.log(res)
+    	var vo = res.data.vo;
+		var e_id = vo.e_id;
+		var e_que = vo.e_que;
+		var ans1 = vo.ans1;
+		var ans2 = vo.ans2;
+		var ans3 = vo.ans3;
+		var ans4 = vo.ans4;
+		var ans = vo.ans;
+		
+		
+		$('#e_id').val(e_id);
+		$('#e_que').val(e_que);
+		$('#ans1').val(ans1);
+		$('#ans2').val(ans2);
+		$('#ans3').val(ans3);
+		$('#ans4').val(ans4);
+		$('#ans').val(ans);
+    })
+
+}
+
+function fn_add() {
+	var e_id = 	$('#e_id').val();
+	var e_que = 	$('#e_que').val();
+	var ans1 = 	$('#ans1').val();
+	var ans2 = 	$('#ans2').val();
+	var ans3 = 	$('#ans3').val();
+	var ans4 =	 	$('#ans4').val();
+	var ans = 		$('#ans').val();
+	var param = {
+		'e_id' : e_id,
+		'e_que' : e_que,
+		'ans1' : ans1,
+		'ans2' : ans2,
+		'ans3' : ans3,
+		'ans4' : ans4,
+		'ans' : ans
+	};
+	
+	axios.post('/examadd', JSON.stringify(param),{
+        headers : {
+        	'accept' : 'application/json',
+        	"content-type" : "application/json"
+        }
+    }).then((res) => {
+    	let cnt = res.data.cnt
+    	if(cnt != 1) alert("데이터 추가 중 문제가 생겼습니다.");
+			else {
+				alert("데이터 입력 성공");
+				fn_list();
+				$('#e_id').val(""); 
+				$('#e_que').val("");
+				$('#ans1').val(""); 
+				$('#ans2').val(""); 
+			    $('#ans3').val(""); 
+			    $('#ans4').val(""); 
+		        $('#ans').val("");  
+		 	}
+    })
+	
+
+}
+function fn_mod() {
+	var e_id = 	$('#e_id').val();
+	var e_que = 	$('#e_que').val();
+	var ans1 = 	$('#ans1').val();
+	var ans2 = 	$('#ans2').val();
+	var ans3 = 	$('#ans3').val();
+	var ans4 =	 	$('#ans4').val();
+	var ans = 		$('#ans').val();
+	var param = {
+			'e_id' : e_id,
+			'e_que' : e_que,
+			'ans1' : ans1,
+			'ans2' : ans2,
+			'ans3' : ans3,
+			'ans4' : ans4,
+			'ans' : ans
+		};
+
+	 axios.post('/exammod', JSON.stringify(param),{
+	        headers : {
+	        	'accept' : 'application/json',
+	        	"content-type" : "application/json"
+	        }
+	    }).then((res) => {
+	    	let cnt = res.data.cnt
+	    	if(cnt != 1) alert("데이터 수정 중 문제가 생겼습니다.");
+				else {
+					alert("데이터 수정 성공");
+					fn_list();
+					$('#e_id').val(""); 
+					$('#e_que').val("");
+					$('#ans1').val(""); 
+					$('#ans2').val(""); 
+				    $('#ans3').val(""); 
+				    $('#ans4').val(""); 
+			        $('#ans').val("");  
+			 	}
+	    })
+	    
+}
+function fn_del() {
+	var e_id = $('#e_id').val();
+
+	var param = {
+		'e_id' : e_id
+	};
+	axios.post('/examdel', JSON.stringify(param),{
+        headers : {
+        	'accept' : 'application/json',
+        	"content-type" : "application/json"
+        }
+    }).then((res) => {
+    	let cnt = res.data.cnt
+    	if(cnt != 1) alert("데이터 삭제 중 문제가 생겼습니다.");
+			else {
+				alert("데이터 삭제 성공");
+				fn_list();
+				$('#e_id').val(""); 
+				$('#e_que').val("");
+				$('#ans1').val(""); 
+				$('#ans2').val(""); 
+			    $('#ans3').val(""); 
+			    $('#ans4').val(""); 
+		        $('#ans').val("");  
+		 	}
+    })
+	
+}
+</script>
+</head>
+<body onload="fn_list()">
+<h4>EXAM</h4>
+<table border="1px">
+	<tr>
+		<td>사번</td>
+		<td>문제</td>
+		<td>답</td>
+	</tr>
+	<tbody id="mytbody">
+		<tr>
+			<td colspan="3">
+				검색된 데이터가 없습니다.
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br>
+<table border="1px">
+	<tr>
+		<td>문제번호</td>
+		<td>
+			<input type="text" id="e_id">
+		</td>
+	</tr>
+	<tr>
+		<td>문제</td>
+		<td>
+			<input type="text" id="e_que">
+		</td>
+	</tr>
+	<tr>
+		<td>1.</td>
+		<td>
+			<input type="text" id="ans1">
+		</td>
+	</tr>
+	<tr>
+		<td>2.</td>
+		<td>
+			<input type="text" id="ans2">
+		</td>
+	</tr>
+	<tr>
+		<td>3.</td>
+		<td>
+			<input type="text" id="ans3">
+		</td>
+	</tr>
+	<tr>
+		<td>4.</td>
+		<td>
+			<input type="text" id="ans4">
+		</td>
+	</tr>
+	<tr>
+		<td>정답</td>
+		<td>
+			<input type="text" id="ans">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button onclick="fn_add()">추가</button>				
+			<button onclick="fn_mod()">수정</button>			
+		</td>
+		<td>
+			<button onclick="fn_del()">삭제</button>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

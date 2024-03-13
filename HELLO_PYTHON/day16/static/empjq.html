@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.7.1.js"></script>
+<script type="text/javascript">
+$('document').ready(function () {
+	fn_list();
+	
+	$('#btn_add').on('click',function() {
+		fn_add();
+	});
+	$('#btn_mod').on('click',function() {
+		fn_mod();
+	});
+	$('#btn_del').on('click',function() {
+		fn_del();
+	});
+})
+function fn_list() {
+	$.ajax({			
+		 type : 'post',
+		 url : '/empList',
+		 contentType : 'JSON',
+		 dataType : 'json',
+		 success : function(res) {
+			 var list = res.list;
+			 
+			 var txt = ``;
+			 
+			 
+			 for(var i = 0; i < list.length; i++) {
+				 var e_id = list[i].e_id;
+				 var e_name = list[i].e_name;
+				 var gen = list[i].gen;
+				 var addr = list[i].addr;
+				 txt += `
+					 <tr>
+						<td><a href="javascript:fn_one(${e_id})">${e_id}</a></td>
+						<td>${e_name}</td>
+						<td>${gen}</td>
+						<td>${addr}</td>
+					</tr>		 
+				 `;
+			 }
+			 $('#mytbody').html(txt);
+			
+		 },
+		 error : function() {
+		 	alert('요청 실패쓰');
+		 }
+	}) 	
+}
+function fn_one(e_id) {
+	console.log(e_id)
+	var postdata = {'e_id' : e_id}
+	$.ajax({			
+		 type : 'post',
+		 url : '/empone',
+		 data : JSON.stringify(postdata),
+		 contentType : 'application/json',
+		 dataType : 'json',
+		 success : function(res) {
+			 var vo = res.vo;
+			 var id = vo.e_id;
+			 var name = vo.e_name;
+			 var gen = vo.gen;
+			 var addr = vo.addr;
+			 
+			 $('#e_id').val(id);
+			 $('#e_name').val(name);
+			 $('#gen').val(gen);
+			 $('#addr').val(addr);
+		 },
+		 error : function() {
+		 	alert('요청 실패쓰');
+		 }
+	}) 	
+}
+
+function fn_add() {
+	var e_id = $('#e_id').val();
+	var e_name = $('#e_name').val();
+	var gen = $('#gen').val();
+	var addr = $('#addr').val();
+	var param = {
+		'e_id' : e_id,
+		'e_name' : e_name,
+		'gen' : gen,
+		'addr' : addr
+	};
+	
+	$.ajax({			
+		 type : 'post',
+		 url : '/empadd',
+		 data : JSON.stringify(param),
+		 contentType : 'application/json',
+		 dataType : 'json',
+		 success : function(res) {
+			if(res.cnt != 1) alert("데이터 추가 중 문제가 생겼습니다.");
+			else {
+				alert("데이터 입력 성공");
+				fn_list();
+				$('#e_id').val("");
+				$('#e_name').val("");
+				$('#gen').val("");
+				$('#addr').val("");
+			}
+			
+		 },
+		 error : function() {
+		 	alert('요청 실패쓰');
+		 }
+	}) 	
+}
+
+function fn_mod() {
+	var e_id = $('#e_id').val();
+	var e_name = $('#e_name').val();
+	var gen = $('#gen').val();
+	var addr = $('#addr').val();
+	var param = {
+		'e_id' : e_id,
+		'e_name' : e_name,
+		'gen' : gen,
+		'addr' : addr
+	};
+	
+	$.ajax({			
+		 type : 'post',
+		 url : '/empmod',
+		 data : JSON.stringify(param),
+		 contentType : 'application/json',
+		 dataType : 'json',
+		 success : function(res) {
+			if(res.cnt != 1) alert("데이터 수정 중 문제가 생겼습니다.");
+			else {
+				alert("데이터 수정 성공");
+				fn_list();
+				$('#e_id').val("");
+				$('#e_name').val("");
+				$('#gen').val("");
+				$('#addr').val("");
+			}
+			
+		 },
+		 error : function() {
+		 	alert('요청 실패쓰');
+		 }
+	}) 	
+}
+function fn_del() {
+	var e_id = $('#e_id').val();
+
+	var param = {
+		'e_id' : e_id
+	};
+	console.log(param)
+	
+	$.ajax({			
+		 type : 'post',
+		 url : '/empdel',
+		 data : JSON.stringify(param),
+		 contentType : 'application/json',
+		 dataType : 'json',
+		 success : function(res) {
+			if(res.cnt != 1) alert("데이터 삭제 중 문제가 생겼습니다.");
+			else {
+				alert("데이터 삭제 성공");
+				fn_list();
+				$('#e_id').val("");
+				$('#e_name').val("");
+				$('#gen').val("");
+				$('#addr').val("");
+			}
+			
+		 },
+		 error : function() {
+		 	alert('요청 실패쓰');
+		 }
+	}) 	
+}
+</script>
+</head>
+<body>
+<h4>EMP</h4>
+<table border="1px">
+	<tr>
+		<td>사번</td>
+		<td>이름</td>
+		<td>성별</td>
+		<td>주소</td>
+	</tr>
+	<tbody id="mytbody">
+		<tr>
+			<td colspan="4">
+				검색된 데이터가 없습니다.
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br>
+<table border="1px">
+	<tr>
+		<td>사번</td>
+		<td>
+			<input type="text" id="e_id">
+		</td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td>
+			<input type="text" id="e_name">
+		</td>
+	</tr>
+	<tr>
+		<td>성별</td>
+		<td>
+			<input type="text" id="gen">
+		</td>
+	</tr>
+	<tr>
+		<td>주소</td>
+		<td>
+			<input type="text" id="addr">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button id="btn_add">추가</button>				
+			<button id="btn_mod">수정</button>			
+		</td>
+		<td>
+			<button id="btn_del">삭제</button>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
